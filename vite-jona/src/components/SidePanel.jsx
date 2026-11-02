@@ -25,8 +25,8 @@ const CONTACT_LINKS = [
   },
   {
     title: "GitHub",
-    href: "https://github.com/Joonacius",
-    label: "github.com/Joonacius",
+    href: "https://github.com/JoonaCP",
+    label: "github.com/JoonaCP",
     external: true,
   },
 ];
