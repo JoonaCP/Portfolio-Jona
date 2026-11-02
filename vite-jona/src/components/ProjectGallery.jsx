@@ -4,9 +4,22 @@ import Lightbox from "./Lightbox";
 import Navbar from "./Navbar";
 import ResponsiveImage from "./ResponsiveImage";
 import { getImageUrl } from "../utils/imageHelper";
-import { CELL_NAME_CLASS, columnLines, rowLines } from "../utils/grid";
+import {
+  CELL_DESCRIPTION_CLASS,
+  CELL_DETACHED_DESCRIPTION_CLASS,
+  CELL_NAME_CLASS,
+  columnLines,
+  rowLines,
+} from "../utils/grid";
 
-function ProjectGallery({ name, gallery, rows }) {
+function ProjectGallery({
+  name,
+  description,
+  nameLayout = "col-start-2 row-start-1 lg:col-start-3 lg:row-start-3",
+  descriptionLayout,
+  gallery,
+  rows,
+}) {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const closeLightbox = useCallback(() => setSelectedIndex(null), []);
   const lightboxImages = useMemo(
@@ -33,9 +46,14 @@ function ProjectGallery({ name, gallery, rows }) {
           <GridLines horizontal={rowLines(rows.small)} className="z-base lg:hidden" />
           <GridLines horizontal={rowLines(rows.large)} className="z-base hidden lg:block" />
 
-          <div className="relative z-raised flex items-end justify-center col-start-2 row-start-1 lg:col-start-3 lg:row-start-3">
+          <div className={`relative z-raised flex flex-col items-center justify-end ${nameLayout}`}>
+            {description && !descriptionLayout && <p className={CELL_DESCRIPTION_CLASS}>{description}</p>}
             <h1 className={CELL_NAME_CLASS}>{name}</h1>
           </div>
+
+          {description && descriptionLayout && (
+            <p className={`relative z-raised ${CELL_DETACHED_DESCRIPTION_CLASS} ${descriptionLayout}`}>{description}</p>
+          )}
 
           {gallery.map((image, i) => (
             // Opaca y con borde propio: las líneas de abajo nunca se ven a través de la foto

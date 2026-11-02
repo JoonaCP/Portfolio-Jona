@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Carousel from "../components/Carousel";
 import GridLines from "../components/GridLines";
 import Navbar from "../components/Navbar";
 import ResponsiveImage from "../components/ResponsiveImage";
+import { getProjectSlug } from "../data/projects";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { useTapReveal } from "../hooks/useTapReveal";
 
 const WOMAN_IMAGE = "woman";
+const WOMAN_PROJECT = "WOMAN";
 
 const SLIDES = [
   { image: "img1", alt: "Interior render" },
@@ -15,11 +18,38 @@ const SLIDES = [
   { image: "paris", alt: "Paris project" },
 ];
 
+// `project` es el nombre en data/projects.js; sin él, la imagen no lleva a ninguna página
 const STRIP_IMAGES = [
-  { image: "hall/hall2", alt: "Hall project" },
-  { image: "soho", alt: "Soho project" },
+  { image: "hall/hall2", alt: "Hall project", project: "HALL" },
+  { image: "soho", alt: "Soho project", project: "SOHO" },
   { image: "img7", alt: "Exterior architectural render" },
 ];
+
+function ImageStrip({ revealed, reveal }) {
+  return STRIP_IMAGES.map(({ image, alt, project }) => {
+    const Cell = project ? Link : "div";
+
+    return (
+      <Cell
+        key={image}
+        {...(project && { to: `/works/${getProjectSlug(project)}` })}
+        className={`group overflow-hidden transition-[flex-grow] duration-500 ease-in-out can-hover:hover:flex-[2] focus-visible:flex-[2] focus-visible:[outline-offset:-4px] ${
+          revealed === image ? "flex-[2]" : "flex-1"
+        }`}
+        onClick={(e) => reveal(e, image)}
+      >
+        <ResponsiveImage
+          image={image}
+          alt={alt}
+          sizes="50vw"
+          className={`w-full h-full object-cover transition-[filter] duration-500 ease-in-out filter can-hover:group-hover:grayscale-0 group-focus-visible:grayscale-0 ${
+            revealed === image ? "grayscale-0" : "grayscale"
+          }`}
+        />
+      </Cell>
+    );
+  });
+}
 
 function Home() {
   usePageTitle();
@@ -36,7 +66,7 @@ function Home() {
 
       <main id="main">
         {/* ------------------ MOBILE ------------------ */}
-        <div className="md:hidden relative w-full min-h-[max(100vh,640px)] overflow-hidden">
+        <div className="md:hidden relative w-full min-h-[max(100vh,808px)] overflow-hidden">
           {/* Líneas de la grilla MOBILE animadas */}
           <GridLines
             className="z-raised"
@@ -77,6 +107,16 @@ function Home() {
             transition={{ delay: 2, duration: 0.8 }}
           >
             <Carousel slides={SLIDES} sizes="100vw" />
+          </motion.div>
+
+          {/* Imágenes en la celda grande, debajo de la fila fina */}
+          <motion.div
+            className="absolute top-[579px] bottom-[31px] left-[60px] right-[60px] flex flex-row overflow-hidden z-base"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.3, duration: 0.8 }}
+          >
+            <ImageStrip revealed={revealed} reveal={reveal} />
           </motion.div>
         </div>
 
@@ -165,29 +205,12 @@ function Home() {
               animate={{ opacity: 1 }}
               transition={{ delay: 2.1, duration: 0.8 }}
             >
-              {STRIP_IMAGES.map(({ image, alt }) => (
-                <div
-                  key={image}
-                  className={`group overflow-hidden transition-[flex-grow] duration-500 ease-in-out can-hover:hover:flex-[2] ${
-                    revealed === image ? "flex-[2]" : "flex-1"
-                  }`}
-                  onClick={(e) => reveal(e, image)}
-                >
-                  <ResponsiveImage
-                    image={image}
-                    alt={alt}
-                    sizes="50vw"
-                    className={`w-full h-full object-cover transition-[filter] duration-500 ease-in-out filter can-hover:group-hover:grayscale-0 ${
-                      revealed === image ? "grayscale-0" : "grayscale"
-                    }`}
-                  />
-                </div>
-              ))}
+              <ImageStrip revealed={revealed} reveal={reveal} />
             </motion.div>
 
             {/* Imagen derecha inferior */}
             <motion.div
-              className="group absolute overflow-hidden z-base"
+              className="absolute overflow-hidden z-base"
               style={{
                 left: "66.666%",
                 width: "33.334%",
@@ -197,19 +220,36 @@ function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.2, duration: 0.8 }}
-              onClick={(e) => reveal(e, WOMAN_IMAGE)}
             >
-              <ResponsiveImage
-                image={WOMAN_IMAGE}
-                alt="Woman project"
-                sizes="50vw"
-                className="w-full h-full object-cover"
-              />
-              <div
-                className={`absolute inset-0 bg-white dark:bg-darkBg transition-opacity duration-700 can-hover:group-hover:opacity-0 pointer-events-none z-base ${
-                  revealed === WOMAN_IMAGE ? "opacity-0" : "opacity-100"
-                }`}
-              ></div>
+              <Link
+                to={`/works/${getProjectSlug(WOMAN_PROJECT)}`}
+                className="group relative block w-full h-full focus-visible:[outline-offset:-4px]"
+                onClick={(e) => reveal(e, WOMAN_IMAGE)}
+              >
+                <ResponsiveImage
+                  image={WOMAN_IMAGE}
+                  alt="Woman project"
+                  sizes="50vw"
+                  className="w-full h-full object-cover"
+                />
+                {/* La línea avisa que hay una imagen debajo de la tapa; --mark es el ancho de WORKS en el menú */}
+                <div
+                  className={`absolute inset-0 bg-white dark:bg-darkBg transition-opacity duration-700 can-hover:group-hover:opacity-0 group-focus-visible:opacity-0 pointer-events-none z-base [--mark:60px] lg:[--mark:68px] xl:[--mark:75px] ${
+                    revealed === WOMAN_IMAGE ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <GridLines
+                    horizontal={[
+                      {
+                        bottom: "49px",
+                        left: "calc(50% - var(--mark) / 2)",
+                        right: "calc(50% - var(--mark) / 2)",
+                        delay: 2.6,
+                      },
+                    ]}
+                  />
+                </div>
+              </Link>
             </motion.div>
           </div>
         </div>

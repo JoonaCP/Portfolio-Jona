@@ -20,6 +20,9 @@ function Project() {
   return (
     <ProjectGallery
       name={project.name}
+      description={project.description}
+      nameLayout={project.nameLayout}
+      descriptionLayout={project.descriptionLayout}
       gallery={gallery}
       rows={project.rows ?? DEFAULT_ROWS}
     />
