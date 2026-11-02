@@ -27,7 +27,22 @@ export const projects = [
       },
     ],
   },
-  { name: "KITCHEN", img: "kitchen" },
+  {
+    name: "KITCHEN",
+    img: "kitchen/1",
+    gallery: [
+      {
+        src: "kitchen/1",
+        alt: "White kitchen island in front of a layered blue and sand feature wall, beside a slatted glass wall",
+        layout: COVER_LAYOUT,
+      },
+      {
+        src: "kitchen/2",
+        alt: "Dark kitchen with a long dining table, pendant lights and a marble backsplash",
+        layout: "col-start-2 col-span-2 row-start-5 border-l lg:col-start-4 lg:row-start-2",
+      },
+    ],
+  },
   { name: "BROWN", img: "brown" },
   { name: "LITTLE", img: "little" },
   { name: "WOMAN", img: "woman" },
