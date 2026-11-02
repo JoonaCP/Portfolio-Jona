@@ -4,6 +4,9 @@ import GridLines from "../components/GridLines";
 import Navbar from "../components/Navbar";
 import ResponsiveImage from "../components/ResponsiveImage";
 import { usePageTitle } from "../hooks/usePageTitle";
+import { useTapReveal } from "../hooks/useTapReveal";
+
+const WOMAN_IMAGE = "woman";
 
 const SLIDES = [
   { image: "img1", alt: "Interior render" },
@@ -21,8 +24,13 @@ const STRIP_IMAGES = [
 function Home() {
   usePageTitle();
 
+  const { revealed, reveal, clear } = useTapReveal();
+
   return (
-    <div className="relative min-h-screen bg-white dark:bg-darkBg transition-colors duration-500 overflow-hidden">
+    <div
+      className="relative min-h-screen bg-white dark:bg-darkBg transition-colors duration-500 overflow-hidden"
+      onClick={clear}
+    >
       {/* Navbar */}
       <Navbar />
 
@@ -74,13 +82,14 @@ function Home() {
 
         {/* ------------------ TABLET Y DESKTOP ------------------ */}
         <div className="hidden md:block [container-type:inline-size]">
-          {/* --u equivale a 1px de un diseño de 1920px; --row es el alto de fila, que llena las pantallas altas */}
+          {/* --u equivale a 1px de un diseño de 1920px; --row es el alto de fila, que crece en pantallas altas
+              sin deformar las imágenes. Si sobra alto, solo siguen las líneas verticales */}
           <div
             className="relative w-full"
             style={{
               "--u": "calc(100cqw / 1920)",
-              "--row": "max(calc(var(--u) * 805), calc((100vh - 137px) / 2))",
-              minHeight: "calc(137px + var(--row) * 2)",
+              "--row": "min(max(calc(var(--u) * 805), calc((100vh - 137px) / 2)), calc(var(--u) * 1006))",
+              minHeight: "max(100vh, calc(137px + var(--row) * 2))",
             }}
           >
             {/* Líneas de la cuadrícula DESKTOP animadas */}
@@ -89,7 +98,7 @@ function Home() {
               horizontal={[
                 { top: "67px", delay: 1 },
                 { top: "calc(68px + var(--row))", delay: 1.2 },
-                { bottom: "67px", delay: 1.4 },
+                { top: "calc(69px + var(--row) * 2)", delay: 1.4 },
               ]}
               vertical={[
                 { left: "33.333%", delay: 0.6 },
@@ -105,6 +114,7 @@ function Home() {
                 width: "33.333%",
                 top: "68px",
                 height: "var(--row)",
+                paddingTop: "calc(var(--u) * 24)",
                 paddingInline: "calc(var(--u) * 32)",
               }}
               initial={{ opacity: 0 }}
@@ -149,7 +159,7 @@ function Home() {
                 left: "0",
                 width: "33.333%",
                 top: "calc(69px + var(--row))",
-                bottom: "68px",
+                height: "var(--row)",
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -158,13 +168,18 @@ function Home() {
               {STRIP_IMAGES.map(({ image, alt }) => (
                 <div
                   key={image}
-                  className="group flex-1 overflow-hidden transition-[flex-grow] duration-500 ease-in-out hover:flex-[2]"
+                  className={`group overflow-hidden transition-[flex-grow] duration-500 ease-in-out can-hover:hover:flex-[2] ${
+                    revealed === image ? "flex-[2]" : "flex-1"
+                  }`}
+                  onClick={(e) => reveal(e, image)}
                 >
                   <ResponsiveImage
                     image={image}
                     alt={alt}
                     sizes="50vw"
-                    className="w-full h-full object-cover transition-[filter] duration-500 ease-in-out filter can-hover:grayscale group-hover:grayscale-0"
+                    className={`w-full h-full object-cover transition-[filter] duration-500 ease-in-out filter can-hover:group-hover:grayscale-0 ${
+                      revealed === image ? "grayscale-0" : "grayscale"
+                    }`}
                   />
                 </div>
               ))}
@@ -177,19 +192,24 @@ function Home() {
                 left: "66.666%",
                 width: "33.334%",
                 top: "calc(69px + var(--row))",
-                bottom: "68px",
+                height: "var(--row)",
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.2, duration: 0.8 }}
+              onClick={(e) => reveal(e, WOMAN_IMAGE)}
             >
               <ResponsiveImage
-                image="woman"
+                image={WOMAN_IMAGE}
                 alt="Woman project"
                 sizes="50vw"
                 className="w-full h-full object-cover"
               />
-              <div className="hidden can-hover:block absolute inset-0 bg-white dark:bg-darkBg transition-opacity duration-700 opacity-100 group-hover:opacity-0 pointer-events-none z-base"></div>
+              <div
+                className={`absolute inset-0 bg-white dark:bg-darkBg transition-opacity duration-700 can-hover:group-hover:opacity-0 pointer-events-none z-base ${
+                  revealed === WOMAN_IMAGE ? "opacity-0" : "opacity-100"
+                }`}
+              ></div>
             </motion.div>
           </div>
         </div>

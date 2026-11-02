@@ -1,31 +1,21 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import GridLines from "../components/GridLines";
 import Navbar from "../components/Navbar";
 import ResponsiveImage from "../components/ResponsiveImage";
 import { getProjectSlug, projects } from "../data/projects";
 import { usePageTitle } from "../hooks/usePageTitle";
+import { useTapReveal } from "../hooks/useTapReveal";
 import { CELL_NAME_CLASS, columnLines, rowLines } from "../utils/grid";
 
 function Works() {
   usePageTitle("Works");
 
-  const [revealed, setRevealed] = useState(null);
-
-  // Sin hover, el primer toque revela la imagen y el segundo abre el proyecto
-  const onTileClick = (e, name) => {
-    const isKeyboard = e.detail === 0;
-    if (isKeyboard || revealed === name || window.matchMedia("(hover: hover)").matches) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    setRevealed(name);
-  };
+  const { revealed, reveal, clear } = useTapReveal();
 
   return (
     <div
       className="relative min-h-screen bg-white dark:bg-darkBg overflow-hidden transition-colors duration-500"
-      onClick={() => setRevealed(null)}
+      onClick={clear}
     >
       <Navbar gridAligned centerLogo />
 
@@ -47,7 +37,7 @@ function Works() {
               key={name}
               to={`/works/${getProjectSlug(name)}`}
               className="group relative block aspect-[384/539] overflow-hidden focus-visible:[outline-offset:-4px]"
-              onClick={(e) => onTileClick(e, name)}
+              onClick={(e) => reveal(e, name)}
             >
               <ResponsiveImage
                 image={img}
