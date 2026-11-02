@@ -1,8 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import GridLines from "./GridLines";
 import Lightbox from "./Lightbox";
 import Navbar from "./Navbar";
+import { Underline } from "./NavLinks";
 import ResponsiveImage from "./ResponsiveImage";
+import { getProjectSlug } from "../data/projects";
 import { getImageUrl } from "../utils/imageHelper";
 import {
   CELL_DESCRIPTION_CLASS,
@@ -12,6 +15,19 @@ import {
   rowLines,
 } from "../utils/grid";
 
+function ProjectLink({ label, name, className }) {
+  return (
+    <Link
+      to={`/works/${getProjectSlug(name)}`}
+      className={`group relative justify-self-center self-center flex flex-col items-center leading-tight whitespace-nowrap text-black dark:text-white font-plus font-light text-sm md:text-base lg:text-lg xl:text-xl ${className}`}
+    >
+      <span>{label}</span>
+      <span>{name}</span>
+      <Underline />
+    </Link>
+  );
+}
+
 function ProjectGallery({
   name,
   description,
@@ -19,6 +35,8 @@ function ProjectGallery({
   descriptionLayout,
   gallery,
   rows,
+  previous,
+  next,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const closeLightbox = useCallback(() => setSelectedIndex(null), []);
@@ -37,7 +55,7 @@ function ProjectGallery({
       <GridLines vertical={columnLines(3)} className="z-base lg:hidden" />
       <GridLines vertical={columnLines(5)} className="z-base hidden lg:block" />
 
-      <main id="main" className="py-[67px] [container-type:inline-size]">
+      <main id="main" className="pt-[67px] [container-type:inline-size]">
         {/* Misma grilla y proporción de celdas que Works */}
         <div
           className="relative grid grid-cols-3 lg:grid-cols-5 [grid-template-rows:repeat(var(--rows-small),calc(100cqw/3*539/384))] lg:[grid-template-rows:repeat(var(--rows-large),calc(20cqw*539/384))]"
@@ -73,6 +91,11 @@ function ProjectGallery({
             </button>
           ))}
         </div>
+
+        <nav aria-label="Projects" className="relative z-raised grid grid-cols-3 lg:grid-cols-5 h-[67px]">
+          <ProjectLink label="PREVIOUS" name={previous} className="col-start-1" />
+          <ProjectLink label="NEXT" name={next} className="col-start-3 lg:col-start-5" />
+        </nav>
       </main>
 
       {selectedIndex !== null && (

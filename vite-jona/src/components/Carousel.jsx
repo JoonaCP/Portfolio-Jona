@@ -3,7 +3,8 @@ import ResponsiveImage from "./ResponsiveImage";
 
 const INTERVAL = 3500;
 
-function Carousel({ slides, sizes }) {
+// revealed: reemplaza el hover en pantallas táctiles
+function Carousel({ slides, sizes, revealed = false }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -23,9 +24,9 @@ function Carousel({ slides, sizes }) {
           image={image}
           alt={i === active ? alt : ""}
           sizes={sizes}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 w-full h-full object-cover transition-[opacity,filter] duration-700 ease-in-out filter can-hover:group-hover:grayscale-0 group-focus-within:grayscale-0 ${
             i === active ? "opacity-100" : "opacity-0"
-          }`}
+          } ${revealed ? "grayscale-0" : "grayscale"}`}
         />
       ))}
       <button

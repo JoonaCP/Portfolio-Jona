@@ -5,7 +5,7 @@
 // `nameLayout` y `descriptionLayout` los ubican en otras celdas, con la descripción por separado.
 // En `gallery`, `layout` indica las celdas de cada imagen, dejando al menos una libre entre ellas;
 // las que no arrancan en la primera columna suman `border-l`. Si no alcanzan las filas, agregá
-// `rows: { small, large }`.
+// `rows: { small, large }`. `coverClass` corre el encuadre de la portada en Works.
 export const DEFAULT_ROWS = { small: 5, large: 3 };
 
 export const COVER_LAYOUT =
@@ -268,6 +268,7 @@ export const projects = [
   {
     name: "ZOOM",
     img: "zoom/1",
+    coverClass: "object-[80%_50%]",
     description: "A bedroom built into a wall of shelves, seen up close through its everyday objects.",
     nameLayout: "col-start-3 row-start-3",
     descriptionLayout: "col-start-3 row-start-4",
@@ -326,30 +327,30 @@ export const projects = [
     ],
   },
   {
-    name: "MODERN SUIT",
-    img: "modern-suit/1",
+    name: "MODERN SUITE",
+    img: "modern-suite/1",
     description: "A light-filled living room in soft grey and oak, anchored by one bold black wall piece.",
     nameLayout: "col-start-1 row-start-1",
     descriptionLayout: "col-start-1 row-start-2",
     rows: { small: 8, large: 6 },
     gallery: [
       {
-        src: "modern-suit/1",
+        src: "modern-suite/1",
         alt: "White living room with a grey sofa and armchair, a tall plant, a low table and a round black wall light",
         layout: "col-start-2 col-span-2 row-start-2 border-l lg:col-span-4 lg:row-start-1 lg:row-span-2",
       },
       {
-        src: "modern-suit/2",
+        src: "modern-suite/2",
         alt: "Nesting white and wood coffee tables with a plant and a white sculpture, in front of the grey sofa",
         layout: "col-start-2 col-span-2 row-start-4 border-l lg:col-start-1 lg:border-l-0",
       },
       {
-        src: "modern-suit/3",
+        src: "modern-suite/3",
         alt: "Round black and brass wall light with a slatted section, on a white wall beside a hanging lamp",
         layout: "col-start-1 col-span-2 row-start-6 lg:col-start-4 lg:row-start-4 lg:border-l",
       },
       {
-        src: "modern-suit/4",
+        src: "modern-suite/4",
         alt: "Grey sofa seen at an angle, with a triangular coffee table and a tall plant by the sheer curtains",
         layout: "col-start-1 col-span-3 row-start-8 lg:col-start-2 lg:row-start-6 lg:border-l",
       },

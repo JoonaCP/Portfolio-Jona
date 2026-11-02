@@ -10,6 +10,7 @@ import { useTapReveal } from "../hooks/useTapReveal";
 
 const WOMAN_IMAGE = "woman";
 const WOMAN_PROJECT = "WOMAN";
+const CAROUSEL = "carousel";
 
 const SLIDES = [
   { image: "img1", alt: "Interior render" },
@@ -18,37 +19,33 @@ const SLIDES = [
   { image: "paris", alt: "Paris project" },
 ];
 
-// `project` es el nombre en data/projects.js; sin él, la imagen no lleva a ninguna página
+// `project` es el nombre en data/projects.js
 const STRIP_IMAGES = [
   { image: "hall/hall2", alt: "Hall project", project: "HALL" },
   { image: "soho", alt: "Soho project", project: "SOHO" },
-  { image: "img7", alt: "Exterior architectural render" },
+  { image: "tons/1", alt: "Tons project", project: "TONS" },
 ];
 
 function ImageStrip({ revealed, reveal }) {
-  return STRIP_IMAGES.map(({ image, alt, project }) => {
-    const Cell = project ? Link : "div";
-
-    return (
-      <Cell
-        key={image}
-        {...(project && { to: `/works/${getProjectSlug(project)}` })}
-        className={`group overflow-hidden transition-[flex-grow] duration-500 ease-in-out can-hover:hover:flex-[2] focus-visible:flex-[2] focus-visible:[outline-offset:-4px] ${
-          revealed === image ? "flex-[2]" : "flex-1"
+  return STRIP_IMAGES.map(({ image, alt, project }) => (
+    <Link
+      key={image}
+      to={`/works/${getProjectSlug(project)}`}
+      className={`group overflow-hidden transition-[flex-grow] duration-500 ease-in-out can-hover:hover:flex-[2] focus-visible:flex-[2] focus-visible:[outline-offset:-4px] ${
+        revealed === image ? "flex-[2]" : "flex-1"
+      }`}
+      onClick={(e) => reveal(e, image)}
+    >
+      <ResponsiveImage
+        image={image}
+        alt={alt}
+        sizes="50vw"
+        className={`w-full h-full object-cover transition-[filter] duration-500 ease-in-out filter can-hover:group-hover:grayscale-0 group-focus-visible:grayscale-0 ${
+          revealed === image ? "grayscale-0" : "grayscale"
         }`}
-        onClick={(e) => reveal(e, image)}
-      >
-        <ResponsiveImage
-          image={image}
-          alt={alt}
-          sizes="50vw"
-          className={`w-full h-full object-cover transition-[filter] duration-500 ease-in-out filter can-hover:group-hover:grayscale-0 group-focus-visible:grayscale-0 ${
-            revealed === image ? "grayscale-0" : "grayscale"
-          }`}
-        />
-      </Cell>
-    );
-  });
+      />
+    </Link>
+  ));
 }
 
 function Home() {
@@ -95,7 +92,7 @@ function Home() {
               <span className="block mt-2">CALISTRO</span>
             </h1>
             <p className="font-plus text-base mt-6 text-center text-black dark:text-white">
-              Architecture and Interior design
+              Architecture and Interior Design
             </p>
           </motion.div>
 
@@ -105,8 +102,9 @@ function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 0.8 }}
+            onClick={(e) => reveal(e, CAROUSEL)}
           >
-            <Carousel slides={SLIDES} sizes="100vw" />
+            <Carousel slides={SLIDES} sizes="100vw" revealed={revealed === CAROUSEL} />
           </motion.div>
 
           {/* Imágenes en la celda grande, debajo de la fila fina */}
@@ -172,7 +170,7 @@ function Home() {
                 className="font-plus text-black dark:text-white mb-6"
                 style={{ fontSize: "max(16px, calc(var(--u) * 33))" }}
               >
-                Architecture and Interior design
+                Architecture and Interior Design
               </p>
             </motion.div>
 
@@ -188,8 +186,9 @@ function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.8, duration: 0.8 }}
+              onClick={(e) => reveal(e, CAROUSEL)}
             >
-              <Carousel slides={SLIDES} sizes="67vw" />
+              <Carousel slides={SLIDES} sizes="67vw" revealed={revealed === CAROUSEL} />
             </motion.div>
 
             {/* Imágenes columna izquierda - parte inferior */}

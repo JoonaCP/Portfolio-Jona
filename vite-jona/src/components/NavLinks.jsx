@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Underline() {
+export function Underline() {
   return (
     <span className="absolute left-0 -bottom-1 h-[1px] w-0 bg-black dark:bg-white transition-[width] duration-300 group-hover:w-full"></span>
   );

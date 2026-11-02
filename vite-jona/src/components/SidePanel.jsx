@@ -34,9 +34,6 @@ const CONTACT_LINKS = [
 function About() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-plus font-light text-black dark:text-white mb-4">
-        About Me
-      </h3>
       <p className="text-black dark:text-white font-plus font-light leading-relaxed">
         I am an advanced architecture student who also has programming experience.
       </p>
@@ -44,7 +41,7 @@ function About() {
         I work on architectural 3D modeling and rendering across a wide range of software.
       </p>
       <div className="mt-6 space-y-2">
-        <h4 className="font-plus font-light text-black dark:text-white">Skills</h4>
+        <h3 className="font-plus font-light text-black dark:text-white">Skills</h3>
         <ul className="space-y-1 text-black dark:text-white font-plus font-light">
           {SKILLS.map((skill) => (
             <li key={skill}>• {skill}</li>
@@ -58,14 +55,10 @@ function About() {
 function Contact() {
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-plus font-light text-black dark:text-white mb-4">
-        Contact Me
-      </h3>
-
       <div className="space-y-4">
         {CONTACT_LINKS.map(({ title, href, label, external }) => (
           <div key={title}>
-            <h4 className="font-plus font-light text-black dark:text-white mb-2">{title}</h4>
+            <h3 className="font-plus font-light text-black dark:text-white mb-2">{title}</h3>
             <a
               href={href}
               {...(external && { target: "_blank", rel: "noopener noreferrer" })}

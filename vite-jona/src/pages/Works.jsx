@@ -32,7 +32,7 @@ function Works() {
           <GridLines horizontal={rowLines(5)} className="z-raised lg:hidden" />
           <GridLines horizontal={rowLines(3)} className="z-raised hidden lg:block" />
 
-          {projects.map(({ name, img }) => (
+          {projects.map(({ name, img, coverClass = "" }) => (
             <Link
               key={name}
               to={`/works/${getProjectSlug(name)}`}
@@ -43,14 +43,12 @@ function Works() {
                 image={img}
                 alt=""
                 sizes="(min-width: 1024px) 40vw, 60vw"
-                className="w-full h-full object-cover"
+                // En gris hasta el hover; en pantallas táctiles, hasta el primer toque
+                className={`w-full h-full object-cover transition-[filter] duration-700 ease-in-out filter can-hover:group-hover:grayscale-0 group-focus-visible:grayscale-0 ${
+                  revealed === name ? "grayscale-0" : "grayscale"
+                } ${coverClass}`}
               />
-              {/* Tapa la imagen hasta el hover; en pantallas táctiles, hasta el primer toque */}
-              <div
-                className={`absolute inset-0 flex items-end justify-center bg-white dark:bg-darkBg can-hover:group-hover:opacity-0 group-focus-visible:opacity-0 transition-opacity duration-700 ease-in-out z-base ${
-                  revealed === name ? "opacity-0" : ""
-                }`}
-              >
+              <div className="absolute inset-x-0 bottom-0 flex justify-center bg-white dark:bg-darkBg border-t border-black dark:border-white z-base">
                 <p className={CELL_NAME_CLASS}>{name}</p>
               </div>
             </Link>
