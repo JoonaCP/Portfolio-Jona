@@ -1,30 +1,15 @@
 @font-face {
-  font-family: 'PlusJakartaSan';
-  src: url('/fonts/PlusJakartaSan.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'GloryMigella';
-  src: url('/fonts/GloryMigella-Regular.ttf') format('truetype');
+  src: url('/fonts/GloryMigella-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
+/* ExtraLight es el trazo del sitio para todos los textos, sea cual sea el peso pedido */
 @font-face {
   font-family: 'PlusJakarta';
-  src: url('/fonts/PlusJakartaSans-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlusJakarta';
-  src: url('/fonts/PlusJakartaSans-ExtraLight.ttf') format('truetype');
+  src: url('/fonts/PlusJakartaSans-ExtraLight.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
