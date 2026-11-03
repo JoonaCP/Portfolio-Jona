@@ -8,8 +8,6 @@ export function Underline() {
 
 // gridAligned: en la grilla de 5 columnas, WORKS va en la cuarta y ABOUT y CONTACT en la quinta
 function NavLinks({ onOpenPanel, gridAligned = false }) {
-  const buttonClass =
-    "relative group text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition";
   const position = gridAligned
     ? "right-4 lg:right-0 lg:left-[60%] lg:grid lg:grid-cols-2 lg:justify-items-center"
     : "right-4 lg:right-8 xl:right-[8.33%]";
@@ -24,11 +22,11 @@ function NavLinks({ onOpenPanel, gridAligned = false }) {
         <Underline />
       </Link>
       <div className="flex gap-4 lg:gap-7 xl:gap-8">
-        <button type="button" onClick={() => onOpenPanel("about")} className={buttonClass}>
+        <button type="button" onClick={() => onOpenPanel("about")} className="relative group">
           ABOUT
           <Underline />
         </button>
-        <button type="button" onClick={() => onOpenPanel("contact")} className={buttonClass}>
+        <button type="button" onClick={() => onOpenPanel("contact")} className="relative group">
           CONTACT
           <Underline />
         </button>

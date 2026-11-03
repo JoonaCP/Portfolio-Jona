@@ -233,7 +233,7 @@ function Home() {
                 />
                 {/* La línea avisa que hay una imagen debajo de la tapa; --mark es el ancho de WORKS en el menú */}
                 <div
-                  className={`absolute inset-0 bg-white dark:bg-darkBg transition-opacity duration-700 can-hover:group-hover:opacity-0 group-focus-visible:opacity-0 pointer-events-none z-base [--mark:60px] lg:[--mark:68px] xl:[--mark:75px] ${
+                  className={`absolute inset-0 bg-white dark:bg-darkBg [transition:opacity_700ms_cubic-bezier(0.4,0,0.2,1),background-color_500ms_cubic-bezier(0.4,0,0.2,1)] can-hover:group-hover:opacity-0 group-focus-visible:opacity-0 pointer-events-none z-base [--mark:60px] lg:[--mark:68px] xl:[--mark:75px] ${
                     revealed === WOMAN_IMAGE ? "opacity-0" : "opacity-100"
                   }`}
                 >

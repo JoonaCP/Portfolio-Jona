@@ -48,7 +48,7 @@ function Works() {
                   revealed === name ? "grayscale-0" : "grayscale"
                 } ${coverClass}`}
               />
-              <div className="absolute inset-x-0 bottom-0 flex justify-center bg-white dark:bg-darkBg border-t border-black dark:border-white z-base">
+              <div className="absolute inset-x-0 bottom-0 flex justify-center bg-white dark:bg-darkBg transition-colors duration-500 border-t border-black dark:border-white z-base">
                 <p className={CELL_NAME_CLASS}>{name}</p>
               </div>
             </Link>
