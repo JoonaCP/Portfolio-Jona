@@ -33,6 +33,7 @@ function ProjectGallery({
   description,
   nameLayout = "col-start-2 row-start-1 lg:col-start-3 lg:row-start-3",
   descriptionLayout,
+  details = [],
   gallery,
   rows,
   previous,
@@ -72,6 +73,16 @@ function ProjectGallery({
           {description && descriptionLayout && (
             <p className={`relative z-raised ${CELL_DETACHED_DESCRIPTION_CLASS} ${descriptionLayout}`}>{description}</p>
           )}
+
+          {details.map(({ lines, layout }) => (
+            <p key={layout} className={`relative z-raised ${CELL_DETACHED_DESCRIPTION_CLASS} ${layout}`}>
+              {lines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </p>
+          ))}
 
           {gallery.map((image, i) => (
             // Opaca y con borde propio: las líneas de abajo nunca se ven a través de la foto

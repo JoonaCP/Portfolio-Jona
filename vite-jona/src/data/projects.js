@@ -3,6 +3,7 @@
 // Todos los proyectos usan la grilla de Works: 3 columnas hasta lg y 5 desde lg. El nombre y la
 // descripción ocupan la celda 2 de la fila 1 (hasta lg) o la celda 3 de la fila 3 (desde lg);
 // `nameLayout` y `descriptionLayout` los ubican en otras celdas, con la descripción por separado.
+// `details` son los datos del proyecto: cada bloque tiene sus líneas y las celdas de su `layout`.
 // En `gallery`, `layout` indica las celdas de cada imagen, dejando al menos una libre entre ellas;
 // las que no arrancan en la primera columna suman `border-l`. Si no alcanzan las filas, agregá
 // `rows: { small, large }`. `coverClass` corre el encuadre de la portada en Works.
@@ -21,12 +22,19 @@ const TEXT_BESIDE_COVER = {
   descriptionLayout: "col-start-3 row-start-3 lg:row-start-2",
 };
 
+// Para un bloque de `details` al pie de su celda, con el mismo margen que tiene arriba
+const ALIGN_BOTTOM = "self-end pb-2 md:pb-4 lg:pb-[1.5cqw]";
+
 export const projects = [
   {
     name: "HALL",
     img: "hall/hall1",
     description: "A timber-ceilinged lounge that opens onto the garden through full-height windows.",
     ...TEXT_BESIDE_COVER,
+    details: [
+      { lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"], layout: "col-start-1 row-start-4 lg:row-start-3" },
+      { lines: ["2026"], layout: "col-start-2 row-start-4 lg:row-start-3" },
+    ],
     rows: { small: 6, large: 3 },
     gallery: [
       {
@@ -46,6 +54,10 @@ export const projects = [
     img: "kitchen/1",
     description: "Two moods: a bright island against layered color and a dark, marble-lined dining kitchen.",
     ...TEXT_BESIDE_COVER,
+    details: [
+      { lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"], layout: "col-start-1 row-start-4 lg:row-start-3" },
+      { lines: ["2022"], layout: "col-start-2 row-start-4 lg:row-start-3" },
+    ],
     gallery: [
       {
         src: "kitchen/1",
@@ -64,6 +76,13 @@ export const projects = [
     img: "brown/1",
     description: "An open living and dining room in dark concrete tones, warmed by terracotta and wood.",
     ...TEXT_BESIDE_COVER,
+    details: [
+      {
+        lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"],
+        layout: `col-start-2 row-start-5 lg:col-start-4 lg:row-start-1 ${ALIGN_BOTTOM}`,
+      },
+      { lines: ["2026"], layout: `col-start-3 row-start-5 lg:col-start-5 lg:row-start-1 ${ALIGN_BOTTOM}` },
+    ],
     rows: { small: 7, large: 3 },
     gallery: [
       {
@@ -84,6 +103,13 @@ export const projects = [
     description: "A small bedroom, with a closer look at the little details of its objects.",
     nameLayout: "col-start-1 row-start-2 lg:col-start-2 lg:row-start-1",
     descriptionLayout: "col-start-1 row-start-3 lg:col-start-2 lg:row-start-2",
+    details: [
+      {
+        lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"],
+        layout: "col-start-2 row-start-4 lg:col-start-3 lg:row-start-3",
+      },
+      { lines: ["2023"], layout: "col-start-3 row-start-4 lg:col-start-4 lg:row-start-3" },
+    ],
     rows: { small: 8, large: 5 },
     gallery: [
       {
@@ -108,6 +134,13 @@ export const projects = [
     img: "woman/1",
     description: "A sand-toned room of soft leather and sculpted timber screens, styled around a mannequin.",
     ...TEXT_BESIDE_COVER,
+    details: [
+      {
+        lines: ["Created with:", "SketchUp and V-⁠Ray", "Photoshop"],
+        layout: "col-start-2 row-start-6 lg:col-start-4 lg:row-start-3",
+      },
+      { lines: ["2026"], layout: "col-start-3 row-start-6 lg:col-start-5 lg:row-start-3" },
+    ],
     rows: { small: 8, large: 5 },
     gallery: [
       {
@@ -132,6 +165,10 @@ export const projects = [
     img: "soho/1",
     description: "A cognac leather sofa, herringbone floors and a woven wall piece set a relaxed, lived-in mood.",
     ...TEXT_BESIDE_COVER,
+    details: [
+      { lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"], layout: "col-start-1 row-start-4 lg:row-start-3" },
+      { lines: ["2026"], layout: "col-start-2 row-start-4 lg:row-start-3" },
+    ],
     rows: { small: 7, large: 4 },
     gallery: [
       {
@@ -156,7 +193,14 @@ export const projects = [
     img: "scandi",
     description: "A bright kitchen with a timber roof, an arched alcove and patterned cement tiles.",
     ...TEXT_BESIDE_COVER,
-    rows: { small: 3, large: 3 },
+    details: [
+      {
+        lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"],
+        layout: "col-start-2 row-start-4 lg:col-start-4 lg:row-start-2",
+      },
+      { lines: ["2024"], layout: "col-start-3 row-start-4 lg:col-start-5 lg:row-start-2" },
+    ],
+    rows: { small: 4, large: 3 },
     gallery: [
       {
         src: "scandi",
@@ -171,6 +215,10 @@ export const projects = [
     description: "An apartment in mint and blush, where bold circles and striped rugs recall retro graphics.",
     nameLayout: "col-start-1 row-start-3 lg:col-start-2",
     descriptionLayout: "col-start-1 row-start-4 lg:col-start-2",
+    details: [
+      { lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"], layout: "col-start-2 row-start-3 lg:col-start-3" },
+      { lines: ["2024"], layout: "col-start-3 row-start-3 lg:col-start-4" },
+    ],
     rows: { small: 12, large: 8 },
     gallery: [
       {
@@ -211,6 +259,10 @@ export const projects = [
     description: "A warm living room of cognac leather and brass, with the Eiffel Tower framed through the glass.",
     nameLayout: "col-start-1 row-start-1",
     descriptionLayout: "col-start-1 row-start-2",
+    details: [
+      { lines: ["Created with:", "SketchUp and V-⁠Ray", "Photoshop"], layout: "col-start-2 row-start-3 lg:col-start-3" },
+      { lines: ["2023"], layout: "col-start-3 row-start-3 lg:col-start-4" },
+    ],
     rows: { small: 6, large: 4 },
     gallery: [
       {
@@ -236,6 +288,10 @@ export const projects = [
     description: "A calm bedroom in layered browns and greys, from wood panels to textured linens.",
     nameLayout: "col-start-3 row-start-1 lg:col-start-5",
     descriptionLayout: "col-start-3 row-start-2 lg:col-start-5",
+    details: [
+      { lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"], layout: "col-start-1 row-start-4 lg:col-start-3" },
+      { lines: ["2026"], layout: "col-start-1 row-start-5 lg:col-start-3" },
+    ],
     rows: { small: 13, large: 8 },
     gallery: [
       {
@@ -272,6 +328,10 @@ export const projects = [
     description: "A bedroom built into a wall of shelves, seen up close through its everyday objects.",
     nameLayout: "col-start-3 row-start-3",
     descriptionLayout: "col-start-3 row-start-4",
+    details: [
+      { lines: ["Created with:", "SketchUp and Enscape", "Photoshop"], layout: "col-start-1 row-start-3" },
+      { lines: ["2021"], layout: "col-start-2 row-start-3" },
+    ],
     rows: { small: 10, large: 6 },
     gallery: [
       {
@@ -307,6 +367,11 @@ export const projects = [
     description: "An open living, dining and kitchen space with white beams, soft neutrals and a fireplace.",
     nameLayout: "col-start-3 row-start-1 lg:col-start-5",
     descriptionLayout: "col-start-3 row-start-2 lg:col-start-5",
+    details: [
+      // ⁠ evita que V-Ray se corte en el guion
+      { lines: ["Created with:", "SketchUp and V-⁠Ray", "Photoshop"], layout: "col-start-1 row-start-3" },
+      { lines: ["2021"], layout: "col-start-2 row-start-3" },
+    ],
     rows: { small: 6, large: 4 },
     gallery: [
       {
@@ -332,6 +397,10 @@ export const projects = [
     description: "A light-filled living room in soft grey and oak, anchored by one bold black wall piece.",
     nameLayout: "col-start-1 row-start-1",
     descriptionLayout: "col-start-1 row-start-2",
+    details: [
+      { lines: ["Created with:", "SketchUp and D5 Render", "Photoshop"], layout: "col-start-2 row-start-3 lg:col-start-3" },
+      { lines: ["2025"], layout: "col-start-3 row-start-3 lg:col-start-4" },
+    ],
     rows: { small: 8, large: 6 },
     gallery: [
       {
@@ -362,6 +431,10 @@ export const projects = [
     description: "A serene bedroom against charcoal walls, with sage linens and a sculptural floor lamp.",
     nameLayout: "col-start-3 row-start-1 lg:col-start-5",
     descriptionLayout: "col-start-3 row-start-2 lg:col-start-5",
+    details: [
+      { lines: ["Created with:", "SketchUp and V-⁠Ray", "Photoshop"], layout: "col-start-1 row-start-3" },
+      { lines: ["2021"], layout: "col-start-2 row-start-3" },
+    ],
     rows: { small: 7, large: 5 },
     gallery: [
       {
@@ -387,7 +460,11 @@ export const projects = [
     description: "A marble-clad bathroom where a glowing geometric light stands out against dark stone.",
     nameLayout: "col-start-3 row-start-2 lg:col-start-4 lg:row-start-1",
     descriptionLayout: "col-start-3 row-start-3 lg:col-start-4 lg:row-start-2",
-    rows: { small: 3, large: 3 },
+    details: [
+      { lines: ["Created with:", "SketchUp and V-⁠Ray", "Photoshop"], layout: "col-start-1 row-start-4 lg:row-start-3" },
+      { lines: ["2024"], layout: "col-start-2 row-start-4 lg:row-start-3" },
+    ],
+    rows: { small: 4, large: 3 },
     gallery: [
       {
         src: "neon",

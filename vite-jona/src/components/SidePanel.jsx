@@ -6,6 +6,7 @@ const SKILLS = [
   "D5 Render",
   "Enscape",
   "V-Ray",
+  "Photoshop",
   "React & JavaScript",
   "UI/UX Design",
   "Tailwind CSS",

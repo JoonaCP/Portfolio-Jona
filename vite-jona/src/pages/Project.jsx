@@ -28,6 +28,7 @@ function Project() {
       description={project.description}
       nameLayout={project.nameLayout}
       descriptionLayout={project.descriptionLayout}
+      details={project.details}
       gallery={gallery}
       rows={project.rows ?? DEFAULT_ROWS}
       previous={previous.name}
