@@ -5,6 +5,7 @@ import Lightbox from "./Lightbox";
 import Navbar from "./Navbar";
 import { Underline } from "./NavLinks";
 import ResponsiveImage from "./ResponsiveImage";
+import Reveal from "./Reveal";
 import { getProjectSlug } from "../data/projects";
 import { getImageUrl } from "../utils/imageHelper";
 import {
@@ -93,12 +94,14 @@ function ProjectGallery({
               className={`group relative z-raised block w-full overflow-hidden cursor-zoom-in bg-white dark:bg-darkBg border-t border-black dark:border-white focus-visible:[outline-offset:-4px] ${image.layout}`}
               onClick={() => setSelectedIndex(i)}
             >
-              <ResponsiveImage
-                image={image.src}
-                alt=""
-                sizes="(min-width: 1024px) 60vw, 100vw"
-                className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-[1.02]"
-              />
+              <Reveal as="span" className="block w-full h-full" delay={Math.min(i * 0.15, 0.45)} whenVisible>
+                <ResponsiveImage
+                  image={image.src}
+                  alt=""
+                  sizes="(min-width: 1024px) 60vw, 100vw"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-[1.02]"
+                />
+              </Reveal>
             </button>
           ))}
         </div>

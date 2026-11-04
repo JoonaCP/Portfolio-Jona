@@ -4,6 +4,7 @@ import Carousel from "../components/Carousel";
 import GridLines from "../components/GridLines";
 import Navbar from "../components/Navbar";
 import ResponsiveImage from "../components/ResponsiveImage";
+import Reveal from "../components/Reveal";
 import { getProjectSlug } from "../data/projects";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { useTapReveal } from "../hooks/useTapReveal";
@@ -97,25 +98,21 @@ function Home() {
           </motion.div>
 
           {/* Carrusel mobile */}
-          <motion.div
+          <Reveal
             className="mt-4 relative z-base mx-[60px] h-[280px] overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 0.8 }}
+            delay={2}
             onClick={(e) => reveal(e, CAROUSEL)}
           >
             <Carousel slides={SLIDES} sizes="100vw" revealed={revealed === CAROUSEL} />
-          </motion.div>
+          </Reveal>
 
           {/* Imágenes en la celda grande, debajo de la fila fina */}
-          <motion.div
+          <Reveal
             className="absolute top-[579px] bottom-[31px] left-[60px] right-[60px] flex flex-row overflow-hidden z-base"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.3, duration: 0.8 }}
+            delay={2.3}
           >
             <ImageStrip revealed={revealed} reveal={reveal} />
-          </motion.div>
+          </Reveal>
         </div>
 
         {/* ------------------ TABLET Y DESKTOP ------------------ */}
@@ -175,7 +172,7 @@ function Home() {
             </motion.div>
 
             {/* Carrusel central */}
-            <motion.div
+            <Reveal
               className="absolute overflow-hidden z-base"
               style={{
                 left: "33.333%",
@@ -183,16 +180,14 @@ function Home() {
                 top: "68px",
                 height: "var(--row)",
               }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.8, duration: 0.8 }}
+              delay={1.8}
               onClick={(e) => reveal(e, CAROUSEL)}
             >
               <Carousel slides={SLIDES} sizes="67vw" revealed={revealed === CAROUSEL} />
-            </motion.div>
+            </Reveal>
 
             {/* Imágenes columna izquierda - parte inferior */}
-            <motion.div
+            <Reveal
               className="absolute flex flex-row overflow-hidden z-base"
               style={{
                 left: "0",
@@ -200,15 +195,13 @@ function Home() {
                 top: "calc(69px + var(--row))",
                 height: "var(--row)",
               }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.1, duration: 0.8 }}
+              delay={2.1}
             >
               <ImageStrip revealed={revealed} reveal={reveal} />
-            </motion.div>
+            </Reveal>
 
             {/* Imagen derecha inferior */}
-            <motion.div
+            <Reveal
               className="absolute overflow-hidden z-base"
               style={{
                 left: "66.666%",
@@ -216,9 +209,7 @@ function Home() {
                 top: "calc(69px + var(--row))",
                 height: "var(--row)",
               }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.2, duration: 0.8 }}
+              delay={2.2}
             >
               <Link
                 to={`/works/${getProjectSlug(WOMAN_PROJECT)}`}
@@ -249,7 +240,7 @@ function Home() {
                   />
                 </div>
               </Link>
-            </motion.div>
+            </Reveal>
           </div>
         </div>
       </main>

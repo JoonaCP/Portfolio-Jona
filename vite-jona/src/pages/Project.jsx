@@ -23,7 +23,9 @@ function Project() {
   ];
 
   return (
+    // La key monta cada proyecto de cero, para que sus animaciones también corran con Previous y Next
     <ProjectGallery
+      key={slug}
       name={project.name}
       description={project.description}
       nameLayout={project.nameLayout}

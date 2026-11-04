@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import GridLines from "../components/GridLines";
 import Navbar from "../components/Navbar";
 import ResponsiveImage from "../components/ResponsiveImage";
+import Reveal from "../components/Reveal";
 import { getProjectSlug, projects } from "../data/projects";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { useTapReveal } from "../hooks/useTapReveal";
@@ -32,22 +33,24 @@ function Works() {
           <GridLines horizontal={rowLines(5)} className="z-raised lg:hidden" />
           <GridLines horizontal={rowLines(3)} className="z-raised hidden lg:block" />
 
-          {projects.map(({ name, img, coverClass = "" }) => (
+          {projects.map(({ name, img, coverClass = "" }, i) => (
             <Link
               key={name}
               to={`/works/${getProjectSlug(name)}`}
               className="group relative block aspect-[384/539] overflow-hidden focus-visible:[outline-offset:-4px]"
               onClick={(e) => reveal(e, name)}
             >
-              <ResponsiveImage
-                image={img}
-                alt=""
-                sizes="(min-width: 1024px) 40vw, 60vw"
-                // En gris hasta el hover; en pantallas táctiles, hasta el primer toque
-                className={`w-full h-full object-cover transition-[filter] duration-700 ease-in-out filter can-hover:group-hover:grayscale-0 group-focus-visible:grayscale-0 ${
-                  revealed === name ? "grayscale-0" : "grayscale"
-                } ${coverClass}`}
-              />
+              <Reveal className="w-full h-full" delay={i * 0.06} whenVisible>
+                <ResponsiveImage
+                  image={img}
+                  alt=""
+                  sizes="(min-width: 1024px) 40vw, 60vw"
+                  // En gris hasta el hover; en pantallas táctiles, hasta el primer toque
+                  className={`w-full h-full object-cover transition-[filter] duration-700 ease-in-out filter can-hover:group-hover:grayscale-0 group-focus-visible:grayscale-0 ${
+                    revealed === name ? "grayscale-0" : "grayscale"
+                  } ${coverClass}`}
+                />
+              </Reveal>
               <div className="absolute inset-x-0 bottom-0 flex justify-center bg-white dark:bg-darkBg transition-colors duration-500 border-t border-black dark:border-white z-base">
                 <p className={CELL_NAME_CLASS}>{name}</p>
               </div>
