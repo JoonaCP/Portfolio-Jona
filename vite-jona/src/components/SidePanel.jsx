@@ -1,3 +1,4 @@
+import ContactForm from "./ContactForm";
 import MenuButton from "./MenuButton";
 import { useDialog } from "../hooks/useDialog";
 
@@ -53,9 +54,10 @@ function About() {
   );
 }
 
-function Contact() {
+function Contact({ open }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
+      <ContactForm open={open} email={CONTACT_LINKS[0].label} />
       <div className="space-y-4">
         {CONTACT_LINKS.map(({ title, href, label, external }) => (
           <div key={title}>
@@ -110,7 +112,7 @@ function SidePanel({ open, content, onClose, gridAligned = false }) {
 
         <div className="flex-1 p-6 overflow-y-auto overscroll-contain [overflow-wrap:anywhere]">
           {content === "about" && <About />}
-          {content === "contact" && <Contact />}
+          {content === "contact" && <Contact open={open} />}
         </div>
       </div>
     </>
